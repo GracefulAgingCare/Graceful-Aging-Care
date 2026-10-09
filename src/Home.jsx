@@ -21,7 +21,7 @@ function HomePhotos() {
       <img className="hero-photo" src={assetUrl("images/family-at-home.webp")} width="887" height="848" alt="Three children enjoying time together at home" fetchPriority="high" />
       <div className="art-note art-note-top"><span className="note-icon"><Icon name="sun" /></span><span>A brighter everyday<small>Little moments. Meaningful care.</small></span></div>
       <div className="art-note art-note-bottom"><span className="note-icon"><Icon name="heart" /></span><span>Right where you belong.<small>At home, with a helping hand.</small></span></div>
-      <span className="art-spark art-spark-one" aria-hidden="true">✳</span>
+      <Icon name="spark" size={52} className="art-spark art-spark-one" />
     </div>
   );
 }
@@ -64,7 +64,15 @@ export default function Home() {
         <div className="process-grid">{[["01", "Tell us your story", "Share what everyday life looks like and where a little help would make a difference."], ["02", "Make it personal", "Together, we consider your needs, preferences, routines, and budget."], ["03", "Feel at home", "Build a care arrangement around comfort, connection, and the things that matter to you."]].map(([number, title, description]) => <article key={number}><span className="process-number">{number}</span><h3>{title}</h3><p>{description}</p></article>)}</div>
       </section>
       <section className="home-faq page-container" data-reveal><div><p className="eyebrow">A LITTLE CLARITY</p><h2 className="section-heading">Good questions.<br />Thoughtful answers.</h2><p>Every family’s journey is different.<br />We’re here to help you find your next step.</p><Link to="/contact" className="text-link">Have another question? <Icon name="arrow" size={18} /></Link></div><div className="faq-list">{faqs.map(([question, answer]) => <details key={question}><summary>{question}<span className="faq-plus" aria-hidden="true" /></summary><p>{answer}</p></details>)}</div></section>
-      <section className="home-cta page-container" data-reveal><div><p className="eyebrow">YOU DON’T HAVE TO FIGURE IT OUT ALONE</p><h2>Let’s make home<br />an even better place to be.</h2><p>A conversation is a good place to start.</p></div><Link className="button button-light" to="/contact">Let’s talk about care <Icon name="arrow" size={20} /></Link><span className="cta-flower" aria-hidden="true">✳</span></section>
+      <section className="home-cta page-container" data-reveal>
+        <div>
+          <p className="eyebrow">YOU DON’T HAVE TO FIGURE IT OUT ALONE</p>
+          <h2>Let’s make home<br />an even better place to be.</h2>
+          <p>A conversation is a good place to start.</p>
+        </div>
+        <Link className="button button-light" to="/contact">Let’s talk about care <Icon name="arrow" size={20} /></Link>
+        <Icon name="spark" size={260} className="cta-flower" />
+      </section>
     </main>
   );
 }

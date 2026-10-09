@@ -119,7 +119,7 @@ main:focus { outline: none; }
 .art-note-bottom { bottom: 3%; left: -1%; animation-delay: -4s; }
 .note-icon { display: grid; place-items: center; width: 37px; height: 37px; color: #a18243; background: #f9efdb; border-radius: 50%; }
 .art-note-bottom .note-icon { color: var(--purple); background: #f0e7f5; }
-.art-spark { position: absolute; color: #b9a2c9; font-size: 3.2rem; }
+.art-spark { position: absolute; width: 52px; height: 52px; color: #b9a2c9; pointer-events: none; }
 .art-spark-one { top: 15%; left: 6%; }
 .art-spark-two { right: 0; bottom: 9%; color: #bc9664; }
 .tea-steam { animation: steam 4s ease-in-out infinite; }
@@ -171,13 +171,13 @@ main:focus { outline: none; }
 .faq-plus::before, .faq-plus::after { content: ""; position: absolute; background: var(--purple); left: 0; top: 7px; width: 14px; height: 1px; transition: transform .2s; }
 .faq-plus::after { transform: rotate(90deg); }
 details[open] .faq-plus::after { transform: rotate(0deg); }
-.home-cta { position: relative; overflow: hidden; display: flex; justify-content: space-between; align-items: center; gap: 30px; color: #f2e9f5; background: linear-gradient(120deg, #6d28d9, #9235b5 60%, #c9468d); border-radius: 18px; padding: 52px 55px; margin-top: 52px; }
+.home-cta { position: relative; isolation: isolate; overflow: hidden; display: flex; justify-content: space-between; align-items: center; gap: 30px; color: #f2e9f5; background: linear-gradient(120deg, #6d28d9, #9235b5 60%, #c9468d); border-radius: 18px; padding: 52px 55px; margin-top: 52px; }
 .home-cta h2 { color: white; font-size: clamp(2rem, 3.3vw, 2.75rem); }
 .home-cta .eyebrow { color: #ede1f4; font-size: .63rem; }
 .home-cta p:last-child { font-size: .82rem; margin: 0; }
 .home-cta > div, .home-cta > a { position: relative; z-index: 1; }
 .home-cta .button { flex-shrink: 0; }
-.cta-flower { position: absolute; right: -40px; bottom: -120px; font-size: 27rem; color: #b55bd08c; line-height: 1; pointer-events: none; }
+.cta-flower { position: absolute; z-index: 0; right: -45px; bottom: -75px; width: 260px; height: 260px; color: #ead5ff; opacity: .12; pointer-events: none; }
 
 /* About, services, and founder */
 .page-header, .contact-intro { padding-block: 65px 52px; max-width: 850px; }
@@ -425,7 +425,7 @@ details[open] .faq-plus::after { transform: rotate(0deg); }
   .home-cta { flex-direction: column; align-items: flex-start; padding: 35px 28px; margin-top: 30px; }
   .home-cta h2 { font-size: 2.1rem; }
   .home-cta .eyebrow { font-size: .56rem; }
-  .cta-flower { right: -115px; }
+  .cta-flower { right: -35px; bottom: -45px; width: 180px; height: 180px; }
   .site-footer { margin-top: 65px; }
   .footer-main { grid-template-columns: 1fr; gap: 30px; padding-top: 40px; }
   .footer-main nav { column-gap: 20px; row-gap: 16px; font-size: .74rem; }
