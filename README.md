@@ -2,6 +2,10 @@
 
 A responsive React and Vite website for Graceful Aging Care, a non-medical home care agency in Charlotte, North Carolina.
 
+Website: https://gracefulagingcare.github.io/Graceful-Aging-Care/
+
+Repository: https://github.com/GracefulAgingCare/Graceful-Aging-Care
+
 ## Development
 
 ```sh
@@ -44,12 +48,12 @@ Deploy the whole `dist` directory. The site uses ordinary browser paths instead 
 For a project site, configure matching values before building:
 
 ```dotenv
-VITE_SITE_URL=https://YOUR-USERNAME.github.io/YOUR-REPOSITORY
-VITE_BASE_PATH=/YOUR-REPOSITORY/
+VITE_SITE_URL=https://gracefulagingcare.github.io/Graceful-Aging-Care/
+VITE_BASE_PATH=/Graceful-Aging-Care/
 ```
 
-Replace both placeholders with the actual account and repository names. For a custom domain or an account site such as `https://YOUR-USERNAME.github.io`, use `VITE_BASE_PATH=/`. Vite asset URLs, the browser router, prerendered links, and image paths all use the same base path. Changing either variable requires a fresh build; do not copy a build made for a different base path.
+The workflow in `.github/workflows/deploy.yml` sets these values, checks the source, builds the site, and deploys automatically when `main` changes. GitHub Pages must use **GitHub Actions** as its source. For a custom domain or an account site, use `VITE_BASE_PATH=/` and update the workflow's public URL. Vite asset URLs, the browser router, prerendered links, and image paths all use the same base path. Changing either variable requires a fresh build; do not copy a build made for a different base path.
 
-Publish `dist` with GitHub Pages after the build. The generated `about/index.html`, `founder/index.html`, and `contact/index.html` support direct navigation and refresh on those pages. Submit the full project sitemap URL (`https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/sitemap.xml`) for indexing. Search engines read `robots.txt` only at the hostname root, so a project site's `robots.txt` does not control other repositories or the account's root site.
+The generated `about/index.html`, `founder/index.html`, and `contact/index.html` support direct navigation and refresh. The project sitemap is `https://gracefulagingcare.github.io/Graceful-Aging-Care/sitemap.xml`. Search engines read `robots.txt` only at the hostname root, so a project site's `robots.txt` does not control other repositories or the account's root site.
 
 Page-level metadata and the rendered content follow the [Google JavaScript SEO guidance](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics). Search ranking and indexing depend on the live site; they are not guaranteed by these changes.
