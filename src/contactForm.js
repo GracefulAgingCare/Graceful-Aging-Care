@@ -11,10 +11,11 @@ export const contactServices = [
   { value: "general", label: "I'm not sure yet / general question" },
 ];
 
-const emailPattern = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/;
+const emailPattern = /^[^\s@<>,;]+@[^\s@<>,;]+\.[^\s@<>,;]+$/;
 
 export function getContactConfig(env = import.meta.env ?? {}) {
   const email = (env.VITE_CONTACT_EMAIL || businessContact.email).trim();
+  const copyEmail = (env.VITE_CONTACT_CC ?? businessContact.secondaryEmail).trim();
   let endpoint = "";
   try {
     const url = new URL((env.VITE_CONTACT_ENDPOINT || "").trim());
@@ -23,10 +24,11 @@ export function getContactConfig(env = import.meta.env ?? {}) {
     // An unset or invalid endpoint leaves the email/copy options available.
   }
   const recipient = email.length <= 254 && emailPattern.test(email) ? email : "";
+  const cc = recipient && copyEmail.length <= 254 && emailPattern.test(copyEmail) && copyEmail.toLowerCase() !== recipient.toLowerCase() ? copyEmail : "";
   const formAction = recipient && !endpoint && env.VITE_CONTACT_DELIVERY !== "email"
     ? `https://formsubmit.co/${encodeURIComponent(recipient)}`
     : "";
-  return { email: recipient, endpoint, formAction };
+  return { email: recipient, cc, endpoint, formAction };
 }
 
 export function validateContact(values) {
@@ -57,6 +59,6 @@ export function createMessageDraft(values) {
   return ["Hello Graceful Aging Care,", "", payload.message, "", `Name: ${payload.name}`, `Email: ${payload.email}`, ...(payload.phone ? [`Phone: ${payload.phone}`] : []), `Interested in: ${payload.service}`].join("\n");
 }
 
-export function createMailto(email, values) {
-  return `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent("Care inquiry — Graceful Aging Care")}&body=${encodeURIComponent(createMessageDraft(values))}`;
+export function createMailto(email, values, cc = "") {
+  return `mailto:${encodeURIComponent(email)}?${cc ? `cc=${encodeURIComponent(cc)}&` : ""}subject=${encodeURIComponent("Care inquiry — Graceful Aging Care")}&body=${encodeURIComponent(createMessageDraft(values))}`;
 }

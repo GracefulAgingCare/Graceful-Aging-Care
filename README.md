@@ -17,17 +17,18 @@ Run `npm run lint` to check the source and `npm run build` to create the product
 
 ## Contact details and email delivery
 
-The contact page displays **980-337-0060**, **240-417-0561**, and **Gracefulagingllc@gmail.com** as clickable phone/email links. These details live in `src/businessContact.js` and also appear in the organization metadata.
+The contact page displays **980-337-0060**, **240-417-0561**, **Gracefulagingllc@gmail.com**, and **jappah2001@yahoo.com** as clickable phone/email links. These details live in `src/businessContact.js`.
 
-The form defaults to a normal HTTPS POST to **FormSubmit**, addressed to **Gracefulagingllc@gmail.com**. After local validation, visitors complete FormSubmit's verification on its own page. CAPTCHA remains enabled, the visitor's email is included for replies, and inquiries have the subject `New care inquiry | Graceful Aging Care`. The site does not claim delivery before the provider handles the request.
+The form defaults to a normal HTTPS POST to **FormSubmit**, addressed to **Gracefulagingllc@gmail.com** with a copy to **jappah2001@yahoo.com** using the provider's documented `_cc` field. After local validation, visitors complete FormSubmit's verification on its own page. CAPTCHA remains enabled, the visitor's email is included for replies, and inquiries have the subject `New care inquiry | Graceful Aging Care`. The site does not claim delivery before the provider handles the request. See [FormSubmit's CC documentation](https://formsubmit.co/#_cc).
 
 **Required one-time activation:** Open the contact page through the website, submit an inquiry, complete the provider's verification, and open FormSubmit's activation email in **Gracefulagingllc@gmail.com**. Check Spam if necessary and click its activation link. Until the mailbox is activated, FormSubmit holds submissions instead of forwarding them. Verify this flow from the published site's domain before launch. See [FormSubmit setup](https://formsubmit.co/) and [activation help](https://formsubmit.co/help). No live submission or inbox-delivery claim was made by the local browser checks.
 
-No environment variables are required for this default recipient. To customize, copy `.env.example` to `.env.local` and restart Vite; rebuild production after changes:
+No environment variables are required for these default recipients. To customize, copy `.env.example` to `.env.local` and restart Vite; rebuild production after changes:
 
 - `VITE_CONTACT_EMAIL`: overrides the default public recipient. Changing it requires activating the new recipient with FormSubmit.
-- `VITE_CONTACT_DELIVERY=formsubmit`: the default verification-and-send flow. Use `email` instead to open an email-app draft; the visitor must press Send in that app.
-- `VITE_CONTACT_ENDPOINT`: optional custom HTTPS JSON endpoint, which takes precedence. It must accept cross-origin JSON POST requests and return a successful HTTP status with JSON containing `ok: true` or `success: true` after accepting an inquiry. Errors or timeouts preserve the visitor's message. The payload includes `name`, `email`, `phone`, `service`, and `message`.
+- `VITE_CONTACT_CC`: overrides the second public email recipient. Defaults to `jappah2001@yahoo.com`; set an empty value to omit the copy. Invalid addresses and duplicates of the primary recipient are omitted.
+- `VITE_CONTACT_DELIVERY=formsubmit`: the default verification-and-send flow. Use `email` instead to open an email-app draft addressed to the primary inbox with the second inbox in CC; the visitor must press Send in that app.
+- `VITE_CONTACT_ENDPOINT`: optional custom HTTPS JSON endpoint, which takes precedence. Configure delivery to both inboxes on that server; the frontend recipient settings do not control a custom endpoint's routing. It must accept cross-origin JSON POST requests and return a successful HTTP status with JSON containing `ok: true` or `success: true` after accepting an inquiry. Errors or timeouts preserve the visitor's message. The payload includes `name`, `email`, `phone`, `service`, and `message`.
 
 The copy-message fallback remains available. Drafts are kept only in component memory, not local or session storage. All `VITE_` variables are public: never put SMTP passwords or private provider keys in them. Service links can preselect an option using `/contact?service=personal-care`, `companionship`, `home-support`, `specialized-care`, `community-engagement`, or `general`.
 

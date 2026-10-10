@@ -76,9 +76,14 @@ function FounderPage() {
             <p className="eyebrow">The heart of it all</p>
             <h2 id="family-heading" className="section-heading">Family and life today</h2>
             <p>
-              Today, I am blessed with a loving husband who holds degrees in
-              Information Technology, Networking, and Business Administration.
+              Today, I am blessed with a loving husband, Hilton.
             </p>
+            <p>Hilton has the following credentials:</p>
+            <ul className="founder-credentials">
+              <li>MBA IT management</li>
+              <li>MPS Computer Networking</li>
+              <li>BS Industrial Technology (IT/ Network Management)</li>
+            </ul>
             <p>
               Together, we are proud parents of two wonderful children who fear
               God, value education, and treat others with fairness and respect.

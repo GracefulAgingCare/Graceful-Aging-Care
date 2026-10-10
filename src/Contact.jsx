@@ -117,7 +117,7 @@ export default function Contact() {
         await copyDraft();
         return;
       }
-      window.location.href = createMailto(contactConfig.email, fields);
+      window.location.href = createMailto(contactConfig.email, fields, contactConfig.cc);
       setStatus({ type: "info", message: "Your email app should open with a draft. Review it and press Send there to contact us. If it doesn't open, copy your message below." });
       return;
     }
@@ -191,7 +191,7 @@ export default function Contact() {
             </div>
             {canEmail && <div className="contact-method contact-method-email">
               <dt><Icon name="mail" size={20} /> Email</dt>
-              <dd><a href={`mailto:${encodeURIComponent(contactConfig.email)}`}>{contactConfig.email}</a></dd>
+              <dd>{[contactConfig.email, contactConfig.cc].filter(Boolean).map((email) => <a key={email} href={`mailto:${encodeURIComponent(email)}`}>{email}</a>)}</dd>
             </div>}
           </dl>
           <ol className="contact-steps">
@@ -211,11 +211,12 @@ export default function Contact() {
             <p>Fields marked <span aria-hidden="true">*</span><span className="sr-only">with an asterisk</span> are required.</p>
           </div>
           {!canSend && <p className="contact-notice" id="contact-delivery-note">{canEmail ? "This form prepares a draft in your email app. You'll review and send the email there." : "Online inquiries are not available yet. You can prepare and copy your message below; copying does not send it to us."}</p>}
-          {usesFormSubmit && <p className="contact-notice" id="contact-delivery-note">Your inquiry goes to <strong>{contactConfig.email}</strong>. Complete the verification on the next page to send it.</p>}
+          {usesFormSubmit && <p className="contact-notice" id="contact-delivery-note">Your inquiry goes to <strong>{contactConfig.email}</strong>{contactConfig.cc && <> and <strong>{contactConfig.cc}</strong></>}. Complete the verification on the next page to send it.</p>}
           <form ref={formRef} className="contact-form" action={contactConfig.formAction || undefined} method={usesFormSubmit ? "POST" : undefined} onSubmit={handleSubmit} noValidate aria-describedby={!canSend || usesFormSubmit ? "contact-delivery-note" : undefined}>
             {usesFormSubmit && <>
               <input type="hidden" name="_subject" value="New care inquiry | Graceful Aging Care" />
               <input type="hidden" name="_template" value="table" />
+              {contactConfig.cc && <input type="hidden" name="_cc" value={contactConfig.cc} />}
               <input type="hidden" name="_honey" value={fields.website} />
               <input type="hidden" name="_url" defaultValue="" />
             </>}
